@@ -1,0 +1,101 @@
+{
+  "name": "restaurant_order_manage_system",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "pack": "cross-env NODE_ENV=production webpack --mode=production",
+    "build": "concurrently \"node server.js\" \"zsh ./build.sh\"",
+    "start": "electron .",
+    "package": " cross-env ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/ electron-builder",
+    "dev": "concurrently \"node server.js\" \"cross-env NODE_ENV=development webpack serve --open --mode=development\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "p2win64": "cross-env ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/ electron-builder --win --x64"
+  },
+  "author": "陈梓博",
+  "build": {
+    "appId": "com.example.restaurantOrderManageSystem",
+    "productName": "餐厅点菜管理系统",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "main.js",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icons/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "identity": null,
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "entitlements.mac.plist",
+      "entitlementsInherit": "entitlements.mac.plist",
+      "icon": "icons/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "icons/icon.png"
+    },
+    "extraResources": [
+      {
+        "from": "backend/",
+        "to": "backend",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "backend/node_modules",
+        "to": "backend/node_modules"
+      },
+      {
+        "from": "init.sql",
+        "to": "init.sql"
+      },
+      {
+        "from": "win-node/node.exe",
+        "to": "node"
+      }
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^7.1.2",
+    "css-minimizer-webpack-plugin": "^7.0.0",
+    "electron": "^36.4.0",
+    "electron-builder": "^26.0.12",
+    "html-webpack-plugin": "^5.5.1",
+    "mini-css-extract-plugin": "^2.9.2",
+    "node-polyfill-webpack-plugin": "^4.0.0",
+    "postcss-loader": "^8.1.1",
+    "sass": "^1.80.6",
+    "sass-loader": "^16.0.3",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "axios": "^1.9.0",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "electron-log": "^4.0.7",
+    "express": "^4.21.1",
+    "form-serialize": "^0.7.2",
+    "sqlite3": "^5.1.7"
+  },
+  "sideEffects": [
+    "./src/intro/*.css",
+    "./src/order/*.css",
+    "./src/manage/*.css"
+  ]
+}
